@@ -1,0 +1,148 @@
+$iconsPath: "~assets/icons";
+$imagesPath: "~assets/images";
+.client-information-container {
+  p {
+    font-family: hk-grotesk-medium !important;
+  }
+  @import "styles/rootStyles.scss";
+  display: flex;
+  height: 42px;
+  padding-left: 20px;
+  border-left: 1px solid #E8EBF0;
+  &.not-active {
+    &:hover {
+      cursor: pointer;
+      .company-display-name {
+        color: #6464FF;
+      }
+      .client-name-container {
+        background: #6464FF;
+      }
+    }
+  }
+  .company-display-name {
+    height: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    color: #0A0B2B;
+    font-weight: 500;
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  .client-name-container {
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: -webkit-center;
+    background: #0A0B2B;
+    p {
+      margin-top: 10px;
+      color: #FFFFFF;
+      font-size: 16px;
+      line-height: 21px;
+      font-family: hk-grotesk-medium;
+      margin-bottom: 32px;
+      cursor: pointer;
+    }
+  }
+  .client-expanded-information {
+    position: absolute;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 14px rgba(15, 29, 44, 0.13);
+    border-radius: 4px;
+    right: 40px;
+    top: 75px;
+    display: none;
+    p {
+      font-family: "hk-grotesk";
+    }
+    &.is-active {
+      display: block;
+      z-index: 50;
+    }
+    .client-main-info {
+      border-bottom: 1px solid #E9E9E9;
+      padding: 20px 21px 0px 21px;
+      p.initials {
+        margin: auto;
+        border: 1px solid #E6E6E6;
+        box-sizing: border-box;
+        background: #0A0B2B;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        color: #FFFFFF;
+        font-size: 22.5px;
+        font-family: hk-grotesk-medium;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h6 {
+        font-family: "hk-grotesk";
+        color: rgba(0, 0, 0, 0.85);
+      }
+      p.r {
+        color: rgba(0, 0, 0, 0.65);
+        margin-top: 8px;
+        margin-bottom: 16px;
+      }
+      .email {
+        text-align: center;
+        h6 {
+          margin-top: 12px;
+          color: #121213;
+          font-size: 16px;
+          font-weight: 600;
+        }
+        p {
+          color: #393939;
+        }
+      }
+      .config-button {
+        width: 258px;
+        font-weight: 600;
+        font-size: 16px;
+        border: none;
+        border-radius: 2px;
+        margin-bottom: 18px;
+        color: #6464FF;
+        background: #F6F6FF;
+        font-weight: 400;
+        &:hover {
+          color: #FFFFFF;
+          background: #6464FF;
+        }
+      }
+    }
+    .extras {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      .extra {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 10px 23px;
+        &:hover {
+          background: #F4F6FA;
+          cursor: pointer;
+        }
+        .icon {
+          width: 16px;
+          height: 16px;
+          margin-right: 16px;
+          &--headset_mic {
+            background-color: #393939;
+          }
+        }
+        p {
+          color: rgba(0, 0, 0, 0.85);
+          cursor: pointer;
+          font-size: 15px;
+          line-height: 21px;
+        }
+      }
+    }
+  }
+}
