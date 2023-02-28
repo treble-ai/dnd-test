@@ -1,0 +1,38 @@
+$iconsPath: "~assets/icons";
+$imagesPath: "~assets/images";
+
+.change-question-type-container{
+    .hsm-selector-block{
+        cursor: pointer;
+        display: flex;
+        margin-bottom: 8px;
+        background: black;
+        .hsm-icon{
+            background:rgba(87, 39, 176, 0.3);
+            min-width: 30px;
+        }
+        .hsm-active-icon{
+            background: #FFFFFF;
+            min-width: 0px;
+        }
+        .setting-goal{
+            background: rgba(87, 39, 176, 0.3);
+            height: 28px;
+            border-radius: 5px;
+            display: flex;
+            p{
+                font-family: hk-grotesk-medium;
+                font-size: 16px;
+                color: #FFFFFF;
+                margin: 1px 5px !important;
+                display: inline-block;
+                cursor: pointer;
+
+                &:hover{
+                    color: #FFCD50;
+                }
+            }
+        }
+    }
+}
+
