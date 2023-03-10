@@ -40,7 +40,7 @@ const SetGoalInNode = (props) => {
   };
 
   const renderComponent = () => {
-    let me = JSON.parse(localStorage.getItem("me"));
+    let me = { id: 0, user_id: 0 };
     const { open, configured } = state;
 
     if (!open && !configured) {

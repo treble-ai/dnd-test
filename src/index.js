@@ -44,25 +44,6 @@ function unregister() {
 
 unregister();
 
-const me = JSON.parse(localStorage.getItem("me"));
-
-if (me) {
-  console.log("Identifying", me.user_id, me.name, me.email);
-  window.Appcues.identify(me.user_id, {
-    createdAt: new Date(),
-    role: me.role,
-    firstName: me.name,
-    integrations: me.active_integrations,
-    hubspotCompanyId: me.hubspot_company_id,
-    onboarding_stage: me.onboarding_stage,
-    whatsappProvider: me.whatsapp_provider,
-    segment: me.segment,
-    companyId: me.id,
-    email: me.email,
-  });
-  identifyUser(me.user_id, me.name, me.email);
-}
-
 ReactDOM.render(
   <Provider store={store}>
     <div style={styles}>

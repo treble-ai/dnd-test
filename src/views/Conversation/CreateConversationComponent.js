@@ -155,7 +155,9 @@ const CURSOR_MODE_SELECT = "CURSOR_MODE_SELECT";
 const GOOGLE_SHEETS_URL = "docs.google.com/spreadsheets";
 
 const language = languages[getLanguage()];
-const me = JSON.parse(localStorage.getItem("me"));
+const me = {
+  id: 0,
+};
 
 const DEFAULT_CONVERSATION_NAME = language.convName;
 
