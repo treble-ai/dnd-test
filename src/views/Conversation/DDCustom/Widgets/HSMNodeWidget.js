@@ -8,21 +8,25 @@ import AnswerPortWidget from "./AnswerPortWidget";
 import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
 import { DefaultNodeModel, DefaultPortModel } from "DDCanvas/main";
 import SetGoalInNode from "Components/SetGoalInNode";
+import SetHSM2inNode from "Components/SetHSM2inNode";
+import CreateHSM2EventModal from "Components/Modals/CreateHSM2EventModal";
+import { Button } from 'antd';
 
 import events from "utils/events";
 
 import languages from "./languages.js";
 import getLanguage from "getLanguage.js";
 const language = languages[getLanguage()];
-
+const currentLanguage = getLanguage();
 export class HSMNodeWidget extends React.Component {
   constructor(props) {
     super(props);
     this.changeDrag = this.changeDrag.bind(this);
     this.state = {
       canDrag: false,
+      showModal: false,
     };
-  }
+  } 
 
   renderInputPort() {
     const { node } = this.props;
@@ -253,11 +257,72 @@ export class HSMNodeWidget extends React.Component {
     );
   }
 
-  render() {
+  editHSM2(selectedHSM, timeType, timeInterval) {
+    const { node, diagramEngine } = this.props;
+    console.log("hsm2Node pre  Edit");
+    console.dir(node);
+    const diagramModel = diagramEngine.getDiagramModel();
+    node.hsm2Node.hsm = selectedHSM;
+    node.hsm2TimeInterval = timeInterval;
+    node.hsm2TimeType = timeType;
+    diagramModel.addNode(node.hsm2Node);
+    diagramModel.addNode(node);
+    console.log("Node POST Edit");
+    console.dir(node);
+    this.setState({ showModal: false });
+
+    diagramEngine.forceUpdate();
+  }
+
+  deleteHSM2() {
+    const { node, diagramEngine } = this.props;
+    const diagramModel = diagramEngine.getDiagramModel();
+    diagramModel.removeNode(node.hsm2Node);
+    delete node.hsm2Node;
+    delete node.hsm2TimeInterval;
+    delete node.hsm2TimeType;
+    console.log("Node after Delete");
+    console.dir(node);
+    diagramEngine.forceUpdate();
+  }
+
+  renderHSM2ActionButtons() {
     const { node } = this.props;
+    if (node.hsm2Node) {
+      let string = "In " + node.hsm2TimeInterval + " " + node.hsm2TimeType;
+      return (
+        <div>
+          <p>{string}</p>
+          <Button
+            onClick={
+              () => { this.setState({ showModal: true }) }
+            }>Edit</Button>
+          <Button onClick={this.deleteHSM2.bind(this)}>Delete</Button>
+        </div>
+      );
+    }
+    return;
+  }
+
+  renderEditHSM2Modal() {
+    const { node } = this.props;
+    return (
+      <CreateHSM2EventModal
+        node={node}
+        onSubmit={this.editHSM2.bind(this)}
+        show={this.state.showModal}
+        closeModal={() => this.setState({ showModal: false })}
+      ></CreateHSM2EventModal>
+    )
+  }
+
+  render() {
+    
+    const { node } = this.props;
+    console.log("language: ", currentLanguage);
     const answerOpenPort = node.getAnswerOpenPort();
 
-    const { name, color } = node;
+    const { color } = node;
     const style = {};
     if (color) {
       style.background = color;
@@ -270,6 +335,11 @@ export class HSMNodeWidget extends React.Component {
         <div className="change-question-type-container">
           <SetGoalInNode
             node={node}
+            forceUpdate={this.forceUpdate.bind(this)}
+          />
+          <SetHSM2inNode
+            node={node}
+            diagramEngine={this.props.diagramEngine}
             forceUpdate={this.forceUpdate.bind(this)}
           />
         </div>
@@ -287,6 +357,8 @@ export class HSMNodeWidget extends React.Component {
           {this.renderAnswerClosedPorts()}
           {this.renderDefaultClosedAnswerPort()}
           {this.renderCallToActionButtons()}
+          {this.renderHSM2ActionButtons()}
+          {this.renderEditHSM2Modal()}
         </div>
       </div>
     );
